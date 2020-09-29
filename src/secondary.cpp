@@ -791,7 +791,7 @@ void loadData(string net, string dataset)
 			TEST_DATA_SIZE = 8;	
 		}
 		else
-			assert(false && "Only AlexNet and VGG16 supported on ImageNet");
+			assert(false && "Only AlexNet and VGG16 supported on CIFAR10");
 	}
 	else if (dataset.compare("ImageNet") == 0)
 	{
