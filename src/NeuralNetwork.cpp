@@ -21,16 +21,26 @@ NeuralNetwork::NeuralNetwork(NeuralNetConfig* config)
 {
 	for (size_t i = 0; i < NUM_LAYERS; ++i)
 	{
-		if (config->layerConf[i]->type.compare("FC") == 0)
-			layers.push_back(new FCLayer(config->layerConf[i], i));
-		else if (config->layerConf[i]->type.compare("CNN") == 0)
-			layers.push_back(new CNNLayer(config->layerConf[i], i));
-		else if (config->layerConf[i]->type.compare("Maxpool") == 0)
-			layers.push_back(new MaxpoolLayer(config->layerConf[i], i));
-		else if (config->layerConf[i]->type.compare("ReLU") == 0)
-			layers.push_back(new ReLULayer(config->layerConf[i], i));
-		else if (config->layerConf[i]->type.compare("BN") == 0)
-			layers.push_back(new BNLayer(config->layerConf[i], i));
+		if (config->layerConf[i]->type.compare("FC") == 0) {
+			FCConfig *cfg = static_cast<FCConfig *>(config->layerConf[i]);
+			layers.push_back(new FCLayer(cfg, i));
+		}
+		else if (config->layerConf[i]->type.compare("CNN") == 0) {
+			CNNConfig *cfg = static_cast<CNNConfig *>(config->layerConf[i]);
+			layers.push_back(new CNNLayer(cfg, i));
+		}
+		else if (config->layerConf[i]->type.compare("Maxpool") == 0) {
+			MaxpoolConfig *cfg = static_cast<MaxpoolConfig *>(config->layerConf[i]);
+			layers.push_back(new MaxpoolLayer(cfg, i));
+		}
+		else if (config->layerConf[i]->type.compare("ReLU") == 0) {
+			ReLUConfig *cfg = static_cast<ReLUConfig *>(config->layerConf[i]);
+			layers.push_back(new ReLULayer(cfg, i));
+		}
+		else if (config->layerConf[i]->type.compare("BN") == 0) {
+			BNConfig *cfg = static_cast<BNConfig *>(config->layerConf[i]);
+			layers.push_back(new BNLayer(cfg, i));
+		}
 		else
 			error("Only FC, CNN, ReLU, Maxpool, and BN layer types currently supported");
 	}

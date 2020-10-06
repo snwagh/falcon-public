@@ -127,7 +127,7 @@ void receiveByte(int player, int length, int conn)
 	// totalBytesReceived += 1;
 }
 
-void synchronize(int length = 1)
+void synchronize(int length)
 {
 	char* toSend = new char[length+1];
 	memset(toSend, '0', length+1);
