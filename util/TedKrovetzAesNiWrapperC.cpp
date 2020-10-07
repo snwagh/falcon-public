@@ -7,7 +7,7 @@ __m128i seed[2];
 
 __m128i* temp;
 
-void (*myAES) (block *in, block *out, unsigned nblks, AES_KEY_TED *aesKey);
+void (*myAES) (block *in, block *out, int nblks, AES_KEY_TED *aesKey);
 
 AES_KEY_TED fixed_aes_key;
 
@@ -269,21 +269,21 @@ void AES_init(int numOfParties)
 	//temp = static_cast<__m128i *>(_aligned_malloc(numOfParties * sizeof(__m128i), 16));
 	switch(numOfParties)
 	{
-	  case 3:
-            myAES = &AES_ecb_encrypt_for_3;
-            break;
-      case 4:
-            myAES = &AES_ecb_encrypt_for_4;
-            break;
-      case 5:
-            myAES = &AES_ecb_encrypt_for_5;
-            break;
-	  case 7:
-		    myAES = &AES_ecb_encrypt_for_7;
-		    break;
+	    case 3:
+		myAES = &AES_ecb_encrypt_for_3;
+		break;
+	    case 4:
+		myAES = &AES_ecb_encrypt_for_4;
+		break;
+	    case 5:
+		myAES = &AES_ecb_encrypt_for_5;
+		break;
+	    case 7:
+		myAES = &AES_ecb_encrypt_for_7;
+		break;
 	    //numOfParties>7 - use regular function
-	  default:
-             myAES = &AES_ecb_encrypt_chunk_in_out;
+	    default:
+		myAES = reinterpret_cast<decltype(myAES)>(&AES_ecb_encrypt_chunk_in_out);
 	}
 }
 
