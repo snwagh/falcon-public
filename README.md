@@ -19,7 +19,7 @@ A maliciously secure framework for efficient 3-party protocols tailored for neur
 
 ### Warning
 ---
-This codebase is released solely as a reference for other developers, as a proof-of-concept, and for benchmarking purposes. In particular, it has not had any security review, has a number of implementational TODOs and should be used at your own risk. You can contribute to this project by creating pull requests and submitting fixes and implementations.
+This codebase is released solely as a reference for other developers, as a proof-of-concept, and for benchmarking purposes. In particular, it has not had any security review, has a number of implementational TODOs, has a number of known bugs (especially in the malicious implementation), and thus, should be used at your own risk. You can contribute to this project by creating pull requests and submitting fixes and implementations.
 
 
 ### Requirements
