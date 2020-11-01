@@ -14,7 +14,7 @@ A maliciously secure framework for efficient 3-party protocols tailored for neur
 - [Additional Resources](#additional-resources)
     - [Run combinations](#run-combinations)
     - [Comparison with SecureNN](#comparison-with-securenn)
-    - [Errors and Issues]($errors-and-issues)
+    - [Errors and Issues](#errors-and-issues)
     - [Todos](#todos)
     - [Citation](#citation)
 
