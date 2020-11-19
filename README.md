@@ -35,6 +35,15 @@ This codebase is released solely as a reference for other developers, as a proof
 
   Install these packages with your favorite package manager, e.g, `sudo apt-get install <package-name>`.
 
+### Docker 
+---
+
+To install and run Falcon using docker, first build the container:
+` docker build -t falcon .`
+then run
+`docker run -it falcon '/bin/bash'`.
+
+From the prompt, you can execute any of the commands specified in [Running the code](#running).
 
 ### Source Code
 ---
