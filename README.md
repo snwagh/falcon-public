@@ -84,12 +84,10 @@ To run the code, simply choose one of the following options:
 ### Additional Resources
 ---
 #### Run combinations
-Note that given the size of the larger networks (AlexNet, VGG16) and the need to explicitly define network parameters, these networks can only be run for the CIFAR10 and Tiny ImageNet dataset. On the contrary, the smaller datasets (SecureML, Sarda, MiniONN, and LeNet) can only be run for the MNIST dataset. Running them otherwise should result in assertion errors. 
-
+Note that given the size of the larger networks (AlexNet, VGG16) and the need to explicitly define network parameters, these networks can only be run for the CIFAR10 and Tiny ImageNet dataset. On the contrary, the smaller datasets (SecureML, Sarda, MiniONN, and LeNet) can only be run for the MNIST dataset. Running them otherwise should result in assertion errors. The following configuration was sufficient to produce the results for the larger networks: 2.9 GHz Intel Xeon E5-2666 v3 Processor, 36 cores, 60 GB RAM (in particular, a similar processor with 16 GB RAM was insifficient).
 
 #### Comparison with [SecureNN](https://github.com/snwagh/securenn-public)
 While a bulk of the Falcon code builds on SecureNN, it differs in two important characterastics (1) Building on replicated secret sharing (RSS) (2) Modularity of the design. The latter enables each layer to self contained in forward and backward pass (in contrast to SecureNN where layers are merged for the networks to be tested). The functions are reasonably tested (including ReLU) however they are more tested for 32-bit datatype so the 64-bit might have minor bugs.
-
 
 #### Errors and Issues
 If there are compile/installation/runtime errors, please create git issues. Some of the common errors and their resolutions are listed below: 
