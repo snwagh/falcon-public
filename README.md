@@ -96,12 +96,14 @@ If there are compile/installation/runtime errors, please create git issues. Some
 * `Bad alloc`: This is probably a memory issue. If you're running one of the larger networks (AlexNet, VGG16) on a laptop, try running them on a server/cluster/machine with more memory.
 
 
-#### Todos
+#### Todos/Bug todos
 
 * Remove size argument from all functions (generate it inside functions)
 * Clean-up tools and functionalities file -- move reconstruction functions to tools
 * Pointers to layer configurations are never deleted --> needs to be fixed
 * Precompute implementation
+* Incorrect communication numbers for parallel implememntations
+* ...
 
 #### Citation
 You can cite the paper using the following bibtex entry (the paper links to this repo):
