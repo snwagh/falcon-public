@@ -623,7 +623,7 @@ void zeroPad(const RSSVectorMyType &a, RSSVectorMyType &b,
 			for (size_t k = 0; k < ih; ++k)
 				for (size_t l = 0; l < iw; ++l)
 				{
-					b[i*size_B + j*size_Din + k*size_w + l + P]
+					b[i*size_B + j*size_Din + (k+P)*size_w + l + P]
 						= a[i*Din*iw*ih + j*iw*ih + k*iw + l];
 				}
 }
