@@ -6,7 +6,7 @@ using namespace std;
 
 ReLULayer::ReLULayer(ReLUConfig* conf, int _layerNum)
 :Layer(_layerNum),
- conf(conf->batchSize, conf->inputDim),
+ conf(conf->inputDim, conf->batchSize),
  activations(conf->batchSize * conf->inputDim), 
  deltas(conf->batchSize * conf->inputDim),
  reluPrime(conf->batchSize * conf->inputDim)
