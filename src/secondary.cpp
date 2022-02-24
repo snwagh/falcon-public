@@ -887,7 +887,7 @@ void loadData(string net, string dataset)
 
 	ifstream h_next(filename_test_data_next);
 	ifstream h_prev(filename_test_data_prev);
-	for (int i = 0; i < TRAINING_DATA_SIZE * INPUT_SIZE; ++i)
+	for (int i = 0; i < TEST_DATA_SIZE * INPUT_SIZE; ++i)
 	{
 		h_next >> temp_next; h_prev >> temp_prev;
 		testData.push_back(std::make_pair(floatToMyType(temp_next), floatToMyType(temp_prev)));
@@ -896,7 +896,7 @@ void loadData(string net, string dataset)
 
 	ifstream k_next(filename_test_labels_next);
 	ifstream k_prev(filename_test_labels_prev);
-	for (int i = 0; i < TRAINING_DATA_SIZE * LAST_LAYER_SIZE; ++i)
+	for (int i = 0; i < TEST_DATA_SIZE * LAST_LAYER_SIZE; ++i)
 	{
 		k_next >> temp_next; k_prev >> temp_prev;
 		testLabels.push_back(std::make_pair(floatToMyType(temp_next), floatToMyType(temp_prev)));
