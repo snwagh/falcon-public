@@ -828,10 +828,9 @@ void loadData(string net, string dataset)
 	string filename_test_data_next, filename_test_data_prev;
 	string filename_train_labels_next, filename_train_labels_prev;
 	string filename_test_labels_next, filename_test_labels_prev;
-
-	//Some day check if this is right. It seems that all 
-	//parties use the same data which is not right. 
-	if (partyNum < 3)
+	
+	// modified to let each party holding a share of data
+	if (partyNum == PARTY_A)
 	{
 		filename_train_data_next = "files/train_data_A";
 		filename_train_data_prev = "files/train_data_B";
@@ -842,6 +841,30 @@ void loadData(string net, string dataset)
 		filename_test_labels_next = "files/test_labels_A";
 		filename_test_labels_prev = "files/test_labels_B";
 	}
+
+	if (partyNum == PARTY_B)
+	{
+		filename_train_data_next = "files/train_data_B";
+		filename_train_data_prev = "files/train_data_C";
+		filename_test_data_next = "files/test_data_B";
+		filename_test_data_prev = "files/test_data_C";
+		filename_train_labels_next = "files/train_labels_B";
+		filename_train_labels_prev = "files/train_labels_C";
+		filename_test_labels_next = "files/test_labels_B";
+		filename_test_labels_prev = "files/test_labels_C";
+	}
+
+	if (partyNum == PARTY_C)
+	{
+		filename_train_data_next = "files/train_data_C";
+		filename_train_data_prev = "files/train_data_A";
+		filename_test_data_next = "files/test_data_C";
+		filename_test_data_prev = "files/test_data_A";
+		filename_train_labels_next = "files/train_labels_C";
+		filename_train_labels_prev = "files/train_labels_A";
+		filename_test_labels_next = "files/test_labels_C";
+		filename_test_labels_prev = "files/test_labels_A";
+	}	
 
 	float temp_next = 0, temp_prev = 0;
 	ifstream f_next(filename_train_data_next);
