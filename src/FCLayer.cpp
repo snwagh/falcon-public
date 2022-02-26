@@ -28,9 +28,6 @@ void FCLayer::initialize()
 	float temp[size];
 	for (size_t i = 0; i < size; ++i){
 		temp[i] = (float)(rand() % (higher - lower) + lower)/decimation;
-	
-		if (i < 10)
-			cout << temp[i] << endl;
 		
 		if (partyNum == PARTY_A){
 			weights[i].first = floatToMyType(temp[i]);
