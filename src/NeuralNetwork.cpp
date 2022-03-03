@@ -62,11 +62,12 @@ void NeuralNetwork::forward()
 	layers[0]->forward(inputData);
 	if (LARGE_NETWORK)
 		cout << "Forward \t" << layers[0]->layerNum << " completed..." << endl;
-
+	
+	// cout << "----------------------------------------------" << endl;
+	// cout << "DEBUG: forward() at NeuralNetwork.cpp" << endl;
 	// print_vector(inputData, "FLOAT", "inputData:", 784);
 	// print_vector(*((CNNLayer*)layers[0])->getWeights(), "FLOAT", "w0:", 20);
 	// print_vector((*layers[0]->getActivation()), "FLOAT", "a0:", 1000);
-
 
 	for (size_t i = 1; i < NUM_LAYERS; ++i)
 	{
@@ -76,23 +77,24 @@ void NeuralNetwork::forward()
 
 		// print_vector((*layers[i]->getActivation()), "FLOAT", "Activation Layer"+to_string(i), 
 		// 			(*layers[i]->getActivation()).size());
-
 		// print_vector((*layers[i]->getActivation()), "FLOAT", "Activation Layer "+to_string(i), 100);
 	}
+	// print_vector(inputData, "FLOAT", "Input:", 784);
+	// cout << "size of output: " << (*layers[NUM_LAYERS-1]->getActivation()).size() << endl;
+	// print_vector((*layers[NUM_LAYERS-1]->getActivation()), "FLOAT", "Output:", 10);
 }
 
 void NeuralNetwork::backward()
 {
 	log_print("NN.backward");
-
-	computeDelta();
+	computeDelta();	
 	updateEquations();
 }
 
 void NeuralNetwork::computeDelta()
 {
 	log_print("NN.computeDelta");
-
+	
 	size_t rows = MINI_BATCH_SIZE;
 	size_t columns = LAST_LAYER_SIZE;
 	size_t size = rows*columns;
@@ -171,7 +173,51 @@ void NeuralNetwork::predict(RSSVectorMyType &maxIndex)
 	funcMaxpool(*(layers[NUM_LAYERS-1]->getActivation()), max, maxPrime, rows, columns);
 }
 
+/* new implementation, may still have bug and security flaws */
 void NeuralNetwork::getAccuracy(const RSSVectorMyType &maxIndex, vector<size_t> &counter)
+{
+	log_print("NN.getAccuracy");
+
+	size_t rows = MINI_BATCH_SIZE;
+	size_t columns = LAST_LAYER_SIZE;
+	
+	RSSVectorMyType max(rows);
+	RSSVectorSmallType maxPrime(rows*columns);
+	RSSVectorMyType temp_max(rows), temp_groundTruth(rows);
+	RSSVectorSmallType temp_maxPrime(rows*columns);
+	
+	vector<myType> groundTruth(rows*columns);
+	vector<smallType> prediction(rows*columns);
+	
+	// reconstruct ground truth from output data
+	funcReconstruct(outputData, groundTruth, rows*columns, "groundTruth", false);
+	// print_vector(outputData, "FLOAT", "outputData:", rows*columns);
+	
+	// reconstruct prediction from neural network
+	funcMaxpool((*(layers[NUM_LAYERS-1])->getActivation()), temp_max, temp_maxPrime, rows, columns);
+	funcReconstructBit(temp_maxPrime, prediction, rows*columns, "prediction", false);
+	
+	for (int i = 0, index = 0; i < rows; ++i){
+		counter[1]++;
+		for (int j = 0; j < columns; j++){
+			index = i * columns + j;
+			if ((int) groundTruth[index] * (int) prediction[index] || 
+				(!(int) groundTruth[index] && !(int) prediction[index])){
+				if (j == columns - 1){
+					counter[0]++;
+				}
+			} else {
+				break;
+			}
+		}
+	}
+
+	cout << "Rolling accuracy: " << counter[0] << " out of " 
+		 << counter[1] << " (" << (counter[0]*100/counter[1]) << " %)" << endl;
+}
+
+// original implmentation of NeuralNetwork::getAccuracy(.)
+/* void NeuralNetwork::getAccuracy(const RSSVectorMyType &maxIndex, vector<size_t> &counter)
 {
 	log_print("NN.getAccuracy");
 
@@ -184,7 +230,6 @@ void NeuralNetwork::getAccuracy(const RSSVectorMyType &maxIndex, vector<size_t> 
 	funcMaxpool(outputData, max, maxPrime, rows, columns);
 
 	//Reconstruct things
-/******************************** TODO ****************************************/
 	RSSVectorMyType temp_max(rows), temp_groundTruth(rows);
 	// if (partyNum == PARTY_B)
 	// 	sendTwoVectors<RSSMyType>(max, groundTruth, PARTY_A, rows, rows);
@@ -196,7 +241,6 @@ void NeuralNetwork::getAccuracy(const RSSVectorMyType &maxIndex, vector<size_t> 
 //		dividePlain(temp_max, (1 << FLOAT_PRECISION));
 	// 	addVectors<RSSMyType>(temp_groundTruth, groundTruth, temp_groundTruth, rows);	
 	// }
-/******************************** TODO ****************************************/
 
 	for (size_t i = 0; i < MINI_BATCH_SIZE; ++i)
 	{
@@ -207,6 +251,4 @@ void NeuralNetwork::getAccuracy(const RSSVectorMyType &maxIndex, vector<size_t> 
 
 	cout << "Rolling accuracy: " << counter[0] << " out of " 
 		 << counter[1] << " (" << (counter[0]*100/counter[1]) << " %)" << endl;
-}
-
-
+} */

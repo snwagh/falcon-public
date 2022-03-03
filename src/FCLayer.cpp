@@ -25,21 +25,26 @@ void FCLayer::initialize()
 	size_t decimation = 10000;
 	size_t size = weights.size();
 
-	// RSSVectorMyType temp(size);
-	// for (size_t i = 0; i < size; ++i)
-	// 	temp[i] = floatToMyType((float)(rand() % (higher - lower) + lower)/decimation);
-
-	// if (partyNum == PARTY_S)
-	// 	for (size_t i = 0; i < size; ++i)
-	// 		weights[i] = temp[i];
-	// else if (partyNum == PARTY_A or partyNum == PARTY_D)
-	// 	for (size_t i = 0; i < size; ++i)
-	// 		weights[i] = temp[i];
-	// else if (partyNum == PARTY_B or partyNum == PARTY_C)		
-	// 	for (size_t i = 0; i < size; ++i)
-	// 		weights[i] = 0;
+	float temp[size];
+	for (size_t i = 0; i < size; ++i){
+		temp[i] = (float)(rand() % (higher - lower) + lower)/decimation;
 		
-	
+		if (partyNum == PARTY_A){
+			weights[i].first = floatToMyType(temp[i]);
+			weights[i].second = 0;
+		}
+		
+		if (partyNum == PARTY_B){
+			weights[i].first = 0;
+			weights[i].second = 0;
+		}
+		
+		if (partyNum == PARTY_C){
+			weights[i].first = 0;
+			weights[i].second = floatToMyType(temp[i]);
+		}
+	}
+		
 	fill(biases.begin(), biases.end(), make_pair(0,0));
 }
 
@@ -119,5 +124,5 @@ void FCLayer::updateEquations(const RSSVectorMyType& prevActivations)
 		funcMatMul(prevActivations, deltas, deltaWeight, rows, common_dim, columns, 1, 0, 
 					FLOAT_PRECISION + LOG_LEARNING_RATE + LOG_MINI_BATCH);
 	
-	subtractVectors<RSSMyType>(weights, deltaWeight, weights, size);		
+	subtractVectors<RSSMyType>(weights, deltaWeight, weights, size);
 }

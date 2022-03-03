@@ -828,10 +828,9 @@ void loadData(string net, string dataset)
 	string filename_test_data_next, filename_test_data_prev;
 	string filename_train_labels_next, filename_train_labels_prev;
 	string filename_test_labels_next, filename_test_labels_prev;
-
-	//Some day check if this is right. It seems that all 
-	//parties use the same data which is not right. 
-	if (partyNum < 3)
+	
+	// modified to let each party holding a share of data
+	if (partyNum == PARTY_A)
 	{
 		filename_train_data_next = "files/train_data_A";
 		filename_train_data_prev = "files/train_data_B";
@@ -842,6 +841,30 @@ void loadData(string net, string dataset)
 		filename_test_labels_next = "files/test_labels_A";
 		filename_test_labels_prev = "files/test_labels_B";
 	}
+
+	if (partyNum == PARTY_B)
+	{
+		filename_train_data_next = "files/train_data_B";
+		filename_train_data_prev = "files/train_data_C";
+		filename_test_data_next = "files/test_data_B";
+		filename_test_data_prev = "files/test_data_C";
+		filename_train_labels_next = "files/train_labels_B";
+		filename_train_labels_prev = "files/train_labels_C";
+		filename_test_labels_next = "files/test_labels_B";
+		filename_test_labels_prev = "files/test_labels_C";
+	}
+
+	if (partyNum == PARTY_C)
+	{
+		filename_train_data_next = "files/train_data_C";
+		filename_train_data_prev = "files/train_data_A";
+		filename_test_data_next = "files/test_data_C";
+		filename_test_data_prev = "files/test_data_A";
+		filename_train_labels_next = "files/train_labels_C";
+		filename_train_labels_prev = "files/train_labels_A";
+		filename_test_labels_next = "files/test_labels_C";
+		filename_test_labels_prev = "files/test_labels_A";
+	}	
 
 	float temp_next = 0, temp_prev = 0;
 	ifstream f_next(filename_train_data_next);
@@ -864,7 +887,7 @@ void loadData(string net, string dataset)
 
 	ifstream h_next(filename_test_data_next);
 	ifstream h_prev(filename_test_data_prev);
-	for (int i = 0; i < TRAINING_DATA_SIZE * INPUT_SIZE; ++i)
+	for (int i = 0; i < TEST_DATA_SIZE * INPUT_SIZE; ++i)
 	{
 		h_next >> temp_next; h_prev >> temp_prev;
 		testData.push_back(std::make_pair(floatToMyType(temp_next), floatToMyType(temp_prev)));
@@ -873,7 +896,7 @@ void loadData(string net, string dataset)
 
 	ifstream k_next(filename_test_labels_next);
 	ifstream k_prev(filename_test_labels_prev);
-	for (int i = 0; i < TRAINING_DATA_SIZE * LAST_LAYER_SIZE; ++i)
+	for (int i = 0; i < TEST_DATA_SIZE * LAST_LAYER_SIZE; ++i)
 	{
 		k_next >> temp_next; k_prev >> temp_prev;
 		testLabels.push_back(std::make_pair(floatToMyType(temp_next), floatToMyType(temp_prev)));
