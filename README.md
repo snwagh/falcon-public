@@ -1,6 +1,6 @@
 # Falcon: Honest-Majority Maliciously Secure Framework for Private Deep Learning
 
-A maliciously secure framework for efficient 3-party protocols tailored for neural networks. This work builds off [SecureNN](https://github.com/snwagh/securenn-public), [ABY3](https://github.com/ladnir/aby3) and other prior works.  This work is published in [Privacy Enhancing Technologies Symposium (PETS) 2021](https://petsymposium.org). Paper available [here](https://snwagh.github.io).
+A maliciously secure framework for efficient 3-party protocols tailored for neural networks. This work builds off [SecureNN](https://github.com/snwagh/securenn-public), [ABY3](https://github.com/ladnir/aby3) and other prior works.  This work is published in [Privacy Enhancing Technologies Symposium (PETS) 2021](https://petsymposium.org). Paper available [here](https://snwagh.github.io). If you're looking to run Neural Network training, strongly consider using this GPU-based codebase [Piranha](https://github.com/ucbrise/piranha).
 
 
 ### Table of Contents
