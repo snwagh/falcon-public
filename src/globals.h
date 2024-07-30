@@ -18,7 +18,7 @@
 
 
 /********************* AES and other globals *********************/
-#define LOG_DEBUG false
+#define LOG_DEBUG true
 #define LOG_DEBUG_NETWORK false
 #define FUNCTION_TIME false
 #define RANDOM_COMPUTE 256	//Size of buffer for random elements
@@ -63,5 +63,9 @@ const int BIT_SIZE = (sizeof(myType) * CHAR_BIT);
 const myType LARGEST_NEG = ((myType)1 << (BIT_SIZE - 1));
 const myType MINUS_ONE = (myType)-1;
 const smallType BOUNDARY = (256/PRIME_NUMBER) * PRIME_NUMBER;
+
+/********************* Typedefs for rings *********************/
+typedef unsigned long Lint;
+typedef long long int sLint;
 
 #endif

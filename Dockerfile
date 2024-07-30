@@ -6,11 +6,13 @@ RUN apt-get update \
         make \
         g++ \
         libssl-dev \
+        nano \
+        tmux \
     && rm -r /var/lib/apt/lists/*
 
-RUN git clone https://github.com/snwagh/falcon-public.git Falcon
-
-RUN cd Falcon \
-    && make all -j$(nproc)
+RUN git clone https://github.com/trhieung/falcon-public Falcon
 
 WORKDIR Falcon
+
+RUN chmod +x /Falcon/entrypoint.sh
+ENTRYPOINT ["/Falcon/entrypoint.sh"]

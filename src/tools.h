@@ -22,6 +22,9 @@
 #include "connect.h"
 #include "globals.h"
 
+// custom heading
+#include "randBit.h"
+
 extern int partyNum;
 
 extern AESObject* aes_next;

@@ -1631,6 +1631,39 @@ void funcMaxpool(RSSVectorMyType &a, RSSVectorMyType &max, RSSVectorSmallType &m
 computation. So it might be the case that the approximations 
 introduced by negative and positive numbers in effect cancel out to
 preserve overall NN accuracy. */
+
+
+void debugRandBit(){
+	struct timeval start;
+    struct timeval end;
+    unsigned long timer;
+
+	size_t size;
+	string network = "Debug randbit";
+
+	for (int j = 0; j < 4; j++){
+		RSSVectorMyType b;
+		vector<myType> b_reconst;
+		
+		size = (1 << 10) * pow(10, j);
+		for (int i = 0; i < size; i++){
+			b.push_back(std::make_pair(0, 0));
+			b_reconst.push_back(0);
+		}
+
+		gettimeofday(&start, NULL); // start timer here
+		Rss_RandBit(b, size);
+		gettimeofday(&end, NULL); // stop timer here
+		timer = 1e6 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;
+		printf("randbit: \t%.6lf ms\n", (double)(timer * 0.001));
+
+	#if (!LOG_DEBUG)
+		funcReconstruct(b, b_reconst, size, "b", true);
+	#endif
+	}
+
+}
+
 void debugMatMul()
 {
 	// size_t rows = 1000; 

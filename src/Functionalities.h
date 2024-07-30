@@ -60,6 +60,8 @@ void debugSSBits();
 void debugSS();
 void debugMaxpool();
 
+// custom debug
+void debugRandBit();
 
 //Test
 void testMatMul(size_t rows, size_t common_dim, size_t columns, size_t iter);

@@ -6,7 +6,11 @@ void runTest(string str, string whichTest, string &network)
 {
 	if (str.compare("Debug") == 0)
 	{
-		if (whichTest.compare("Mat-Mul") == 0)
+		if (whichTest.compare("RandBit") == 0)
+		{
+			network = "Debug RandBit";
+			debugRandBit();
+		} else if (whichTest.compare("Mat-Mul") == 0)
 		{
 			network = "Debug Mat-Mul";
 			debugMatMul();
